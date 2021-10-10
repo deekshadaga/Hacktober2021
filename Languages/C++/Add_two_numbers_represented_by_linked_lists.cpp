@@ -1,3 +1,13 @@
+/*For Input:
+2
+4 5
+3
+3 4 5
+
+Your Output: 
+3 9 0 
+*/
+     
 class Solution
 {
      public:
@@ -47,5 +57,8 @@ class Solution
        return reverse(head->next);
    }
 };
+
+
+
 
 
