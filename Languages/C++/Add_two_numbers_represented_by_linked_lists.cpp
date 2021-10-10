@@ -1,39 +1,51 @@
-struct Node* reverse(struct Node* head){
-    Node *curr=head,*prev=NULL,*after=curr->next;
-    while(curr){
-        after=curr->next;
-        curr->next=prev;
-        prev=curr;
-        curr=after;
-        //after=after->next;
-    }
-    return prev;
-} 
-struct Node* addTwoLists(struct Node* first, struct Node* second)
+class Solution
 {
-    if(first==NULL) return second;
-    if(second==NULL) return first;
-    Node *l1=first,*l2=second;
-    int a=0,b=0;
-    while(l1!=NULL){
-        a = a*10+l1->data;
-        l1 = l1->next;
-    }
-    while(l2!=NULL){
-        b = b*10+l2->data;
-        l2 = l2->next;
-    }
-    //cout << a <<" "<< b<<endl;
-    a=a+b;
-    //cout<<a<<endl;
-    Node* head = new Node(a%10);
-    a=a/10;
-    Node* tail = head;
-    while(a){
-        head->next=new Node(a%10);
-        a=a/10;
-        head=head->next;
-    }
-    //head=reverse(tail);
-    return reverse(tail);
-}
+     public:
+    struct Node* reverse(struct Node *head){
+       Node* curr = head;
+       Node* prev = NULL;
+       
+       while(curr != NULL){
+           Node* next = curr->next;
+           curr->next = prev;
+           prev = curr;
+           curr = next;
+       }
+
+       return prev;
+   }
+   //Function to add two numbers represented by linked list.
+   struct Node* addTwoLists(struct Node* first, struct Node* second)
+   {
+       // code here
+       Node* a = reverse(first);
+       Node* b = reverse(second);
+       
+       Node* head = new Node(0);
+       
+       int carry = 0;
+       Node* curr = head;
+       
+       while(a != NULL || b != NULL) {
+           int x = (a == NULL) ? 0 : a->data;
+           int y = (b == NULL) ? 0 : b->data;
+           
+           int sum = x + y + carry;
+           carry = sum/10;
+           sum %= 10;
+           
+           curr->next = new Node(sum);
+           curr = curr->next;
+           
+           if(a != NULL) a = a->next;
+           if(b != NULL) b = b->next;
+       }
+       
+       if(carry)
+       curr->next = new Node(carry);
+           
+       return reverse(head->next);
+   }
+};
+
+
